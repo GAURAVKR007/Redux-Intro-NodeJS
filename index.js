@@ -8,14 +8,14 @@ const CAKE_STOCK = 'CAKE_STOCK'
 function orderCake() {
     return {
     type: CAKE_ORDERED,
-    quantity: 1
+    payload: 1
     }
 }
 
 function stockCake(qty = 1) {
     return {
         type: CAKE_STOCK,
-        quantity: qty
+        payload: qty
     }
 }
 
@@ -38,7 +38,7 @@ const reducer = (state = initalState,action) => {
             case CAKE_STOCK:
                 return {
                 ...state,
-                numOfCakes: state.numOfCakes + action.quantity,
+                numOfCakes: state.numOfCakes + action.payload,
                 }
                 break
         default:
