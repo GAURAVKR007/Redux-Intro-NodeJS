@@ -4,6 +4,8 @@ const bindActionCreators = redux.bindActionCreators
 
 const CAKE_ORDERED = 'CAKE_ORDERED';
 const CAKE_STOCK = 'CAKE_STOCK'
+const ICECREAM_ORDERED = "ICECREAM_ORDERED";
+const ICECREAM_STOCK = "ICECREAM_STOCK"
 
 // Action
 function orderCake() {
@@ -20,8 +22,23 @@ function stockCake(qty = 1) {
     }
 }
 
+function orderIcecream(qty = 1){
+    return {
+        type: ICECREAM_ORDERED,
+        payload: qty
+    }
+}
+
+function stockIcecream(qty = 1){
+    return {
+        type: ICECREAM_STOCK,
+        payload: qty
+    }
+}
+
 const initalState = {
     numOfCakes: 10,
+    numOfIcecream: 10
 }
 
 // (prevState , action) => newState;
@@ -42,6 +59,20 @@ const reducer = (state = initalState,action) => {
                 numOfCakes: state.numOfCakes + action.payload,
                 }
                 break
+
+                case ICECREAM_ORDERED:
+                    return {
+                        ...state,                     // Spread Operator
+                        numOfIcecream: state.numOfIcecream - action.payload,
+                    }
+                    break;
+        
+                    case ICECREAM_STOCK:
+                        return {
+                        ...state,
+                        numOfIcecream: state.numOfIcecream + action.payload,
+                        }
+                        break
         default:
             return state
     }
@@ -57,13 +88,16 @@ const unsubscribe = store.subscribe(()=> console.log('Update state', store.getSt
 // store.dispatch(stockCake())
 // store.dispatch(stockCake(5))
 
-const actions = bindActionCreators({orderCake,stockCake},store.dispatch)
+const actions = bindActionCreators({orderCake,stockCake,stockIcecream,orderIcecream},store.dispatch)
 
 actions.orderCake()
 actions.orderCake()
 actions.orderCake()
 actions.stockCake()
 actions.stockCake(5)
+actions.orderIcecream(2)
+actions.orderIcecream(3)
+actions.stockIcecream(7)
 
 
 
