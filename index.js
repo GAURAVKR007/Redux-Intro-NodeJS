@@ -7,3 +7,22 @@ function orderCake() {
     quantity: 1
     }
 }
+
+const initalState = {
+    numOfCakes: 10,
+}
+
+// (prevState , action) => newState;
+
+const reducer = (state = initalState,action) => {
+    switch(action.type){
+        case CAKE_ORDERED:
+            return {
+                ...state,                     // Spread Operator
+                numOfCakes: state.numOfCakes -1,
+            }
+            break;
+        default:
+            return state
+    }
+}
